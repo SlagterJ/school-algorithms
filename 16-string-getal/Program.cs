@@ -3,6 +3,11 @@
 namespace _16_string_getal {
   class Program {
     static void Main(string[] args) {
+      Console.WriteLine("---");
+      Console.WriteLine("Opdracht 16: String getal");
+      Console.WriteLine("211252 Jordy Slagter");
+      Console.WriteLine("--\n\n");
+
       // Define the string versions of the numbers
       string aString = "23";
       string bString = "34";
