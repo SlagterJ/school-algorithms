@@ -17,9 +17,11 @@ namespace _14_celcius_naar_fahrenheit {
         Console.WriteLine("Dat is niet een nummer!");
         return;
       }
-      double fahrenheit = (celsius * 9) / 5 + 32;
+      double fahrenheit = celsius * 18 / 10 + 32;
+      double kelvin = celsius + 273;
 
       Console.WriteLine($"Fahrenheit: {fahrenheit}");
+      Console.WriteLine($"Kelvin: {kelvin}");
     }
   }
 }
