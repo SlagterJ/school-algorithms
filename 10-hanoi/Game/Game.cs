@@ -33,12 +33,12 @@ namespace _10_hanoi.GameFunctions {
 
       if (!didParse) {
         Console.WriteLine("U moet een nummer invullen");
-        this.AskForInput(question);
+        return this.AskForInput(question);
       }
 
       if (output < 1 || output > 3) {
         Console.WriteLine("U moet een nummer kiezen tussen 1 en 3");
-        this.AskForInput(question);
+        return this.AskForInput(question);
       }
 
       return output;
@@ -54,6 +54,22 @@ namespace _10_hanoi.GameFunctions {
       }
 
       return stickToPickFrom;
+    }
+
+    public int AskForStickToMoveTo(Disk disk) {
+      int stickToMoveTo = this.AskForInput("Kies de stok om de disk naar te verplaatsen:");
+      stickToMoveTo--;
+
+      if (this.sticks[stickToMoveTo].disks.Count < 1) {
+        return stickToMoveTo;
+      }
+
+      if (disk.width > this.sticks[stickToMoveTo].disks[0].width) {
+        Console.WriteLine("De disk mag niet groter zijn dan waar die op gaat");
+        return this.AskForStickToMoveTo(disk);
+      }
+
+      return stickToMoveTo;
     }
 
     public void Start() {
@@ -74,10 +90,7 @@ namespace _10_hanoi.GameFunctions {
 
       Console.WriteLine($"U heeft disk {disk.width} vast");
 
-      int stickToMoveTo = this.AskForInput(
-          "Kies de stok om de disk naar te verplaatsen:"
-      );
-      stickToMoveTo--;
+      int stickToMoveTo = this.AskForStickToMoveTo(disk);
 
       this.sticks[stickToMoveTo].disks.Insert(0, disk);
 
