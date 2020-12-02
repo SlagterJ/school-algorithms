@@ -44,6 +44,18 @@ namespace _10_hanoi.GameFunctions {
       return output;
     }
 
+    public int AskForStickToPickFrom() {
+      int stickToPickFrom = this.AskForInput("Kies de stok om van te pakken:");
+      stickToPickFrom--;
+
+      if (this.sticks[stickToPickFrom].disks.Count < 1) {
+        Console.WriteLine("Daar zitten geen disks in.");
+        return this.AskForStickToPickFrom();
+      }
+
+      return stickToPickFrom;
+    }
+
     public void Start() {
       this.Loop();
     }
@@ -55,8 +67,7 @@ namespace _10_hanoi.GameFunctions {
         stick.Spit();
       }
 
-      int stickToPickFrom = this.AskForInput("Kies de stok om van te pakken:");
-      stickToPickFrom--;
+      int stickToPickFrom = this.AskForStickToPickFrom();
 
       Disk disk = this.sticks[stickToPickFrom].disks[0];
       this.sticks[stickToPickFrom].disks.RemoveAt(0);
@@ -81,17 +92,19 @@ namespace _10_hanoi.GameFunctions {
     }
 
     public bool CheckForWin() {
-      int capacity = this.sticks[2].disks.Capacity;
+      int count = this.sticks[2].disks.Count;
       List<Disk> disks = this.sticks[2].disks;
 
-      if (this.sticks[2].disks.Capacity < 3) {
+      if (count < 3) {
         return false;
       }
 
-      for (int i = 0; i < this.sticks[2].disks.Capacity; i++) {
-        if (disks[i].width > disks[i + 1].width) {
-          return false;
-        }
+      if (
+          disks[0].width > disks[1].width
+          ||
+          disks[1].width > disks[2].width
+      ) {
+        return false;
       }
 
       return true;
